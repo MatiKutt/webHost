@@ -12,24 +12,25 @@
     // Current Frame
     var currentFrame = 0;
 
-
-	var enemyMove = true;
-	var sprite = new Image();
+	var enemyMoving = false;
+var sprite1 = new Image();
+ var sprite = new Image();
     sprite.src = "./img/coolSprites.png"; // Frames 1 to 6
+	sprite1.src = "./img/1to6.png";
 
 
 
-function toggleEnemy(){
-		enemyMove = !enemyMove;	
-	}
-
+function enemySwitch(){
+	enemyMoving = !enemyMoving;
+	console.log("switch");
+}
 
 
 
 
 function GameObject(name, img, health) {
     this.name = name;
-    this.img = sprite;
+    this.img = img;
     this.health = health;
     this.x = 0;
     this.y = 0;
@@ -50,10 +51,10 @@ function GamerInput(input) {
 var gamerInput = new GamerInput("None"); //No Input
 
 // Default Player
-var player = new GameObject("Player", "./img/coolSprites.png", 100);
+var player = new GameObject("Player", sprite, 100);
 
 // Gameobjects is a collection of the Actors within the game
-var gameobjects = [player, new GameObject("NPC", "coolSprites.png", 100)];
+var gameobjects = [player, new GameObject("NPC", sprite1, 100)];
 
 // Process keyboard input event
 function input(event) {
@@ -84,6 +85,36 @@ function input(event) {
     // console.log("Gamer Input :" + gamerInput.action);
 }
 
+function moveLeft(){
+	
+	gamerInput = new GamerInput("Left");
+	console.log("left");
+	
+}
+
+function moveRight(){
+	
+	gamerInput = new GamerInput("Right");
+	console.log("right");
+	gamerInput = new gamerInput("none");
+}
+
+
+function moveUp(){
+	
+	
+	 gamerInput = new GamerInput("Up");
+	console.log("up");
+}
+
+function moveDown(){
+	
+	
+	 gamerInput = new GamerInput("Down");
+	console.log("down");
+}
+
+
 function update() {
     // Iterate through all GameObjects
     // Updating position and gamestate
@@ -91,7 +122,6 @@ function update() {
     for (i = 0; i < gameobjects.length; i++) {
 
         if (gamerInput.action === "Up") {
-            gameobjects[i].health = 100;
 			gameobjects[0].y += -1;
             console.log("Up");
         }
@@ -104,6 +134,7 @@ function update() {
                
                 gameobjects[0].x += 1;
                 console.log("Right");
+				
             }
 		else if (gamerInput.action === "Left") {
                
@@ -120,38 +151,58 @@ function update() {
         } else {
             console.log(gameobjects[i].name + " at X: " + gameobjects[i].x + "  Y: " + gameobjects[i].y + " looks like its not alive :'(");
         }
-	
-		if (enemyMove === true)
+		
+		if (enemyMoving)
 		{
-			if (gameobjects[0].x > gameobjects[1].x)
-			{
-				gameobjects[1].x +=0.5;
-			}
-			else if (gameobjects[0].x < gameobjects[1].x)
-			{
-				gameobjects[1].x -=0.5;
-			}
-			else if (gameobjects[0].y < gameobjects[1].y)
-			{
-				gameobjects[1].y -=0.5;
-			}
-			else if (gameobjects[0].y > gameobjects[1].y)
-			{
-				gameobjects[1].y +=0.5;
-			}
-			
-			if (gameobjects[0].y === gameobjects[1].y && gameobjects[0].x === gameobjects[1].x)
-			{
-				gameobjects[1].x = 0;
-				gameobjects[1].y = 0;
-				gameobjects[0].health--;
-			}
+		
+		if (gameobjects[0].x > gameobjects[1].x)
+		{
+			gameobjects[1].x +=0.5;
+		}
+		else if (gameobjects[0].x < gameobjects[1].x)
+		{
+			gameobjects[1].x -=0.5;
+		}
+		else if (gameobjects[0].y < gameobjects[1].y)
+		{
+			gameobjects[1].y -=0.5;
+		}
+		else if (gameobjects[0].y > gameobjects[1].y)
+		{
+			gameobjects[1].y +=0.5;
 		}
 		
+	
+		
+		if (gameobjects[0].x < gameobjects[1].x + 256 &&
+			gameobjects[0].x + 256 > gameobjects[1].x &&
+			gameobjects[0].y < gameobjects[1].y + 256 &&
+			gameobjects[0].y + 256 > gameobjects[1].y) {
+				gameobjects[0].health--;
+				gameobjects[1].x = 600;
+				gameobjects[1].y = 600;
+			}
+		}
     }
 }
 
-	
+
+function weaponSelection() {
+  var selection = document.getElementById("equipment").value;
+  console.log(selection);
+  var active = document.getElementById("active");
+  console.log(active);
+  if (active.checked == true) {
+    document.getElementById("HUD").innerHTML = selection + " active ";
+    console.log("Weapon Active");
+  } else {
+    document.getElementById("HUD").innerHTML = selection + " selected ";
+    console.log("Weapon Selected");
+  }
+}
+
+
+
 // Draw GameObjects to Console
 // Modify to Draw to Screen
 function draw() {
@@ -182,7 +233,54 @@ function draw() {
 	context.drawImage(gameobjects[0].img, (sprite.width / 6) * currentFrame, 0, 100, 100, gameobjects[0].x, gameobjects[0].y, 256, 256);
     context.drawImage(gameobjects[1].img, (sprite.width / 6) * currentFrame, 0, 100, 100, gameobjects[1].x, gameobjects[1].y, 256, 256);	
 	animate();
+	
+   var width = 100;
+   var height = 20;
+   var max = 100;
+  
+
+  // Draw the background
+  context.fillStyle = "#000000";
+ 
+  context.fillRect(0, 0, width, height);
+
+  // Draw the fill
+  context.fillStyle = "#00FF00";
+  var fillVal = Math.min(Math.max(gameobjects[0].health / max, 0), 1);
+  context.fillRect(0, 0, fillVal * width, height);
+	
 }
+
+
+
+
+var options = [{
+    "text": "This is a selection box",
+    "value": "No Weapon",
+    "selected": true
+  },
+  {
+    "text": "Pistol",
+    "value": "Handgun"
+  },
+  {
+    "text": "Rifle",
+    "value": "Sniper Rifle"
+  },
+  {
+    "text": "shotgun",
+    "value": "Pump-action shotgun"
+  }
+];
+
+var selectBox = document.getElementById('equipment');
+
+for (var i = 0; i < options.length; i++) {
+  var option = options[i];
+  selectBox.options.add(new Option(option.text, option.value, option.selected));
+}
+
+
 
 function animate() {
 	
