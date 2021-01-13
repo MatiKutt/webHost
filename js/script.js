@@ -6,7 +6,9 @@
 
  
 
-
+	var search = window.location.search;
+	console.log(search);
+	
     var frames = 6;
 
     // Current Frame
@@ -23,9 +25,14 @@ var sprite1 = new Image();
 function enemySwitch(){
 	enemyMoving = !enemyMoving;
 	console.log("switch");
+	
 }
 
-
+function setName(){
+	console.log("setName");
+	document.getElementById("Name").innerHTML = search;
+    console.log("Weapon Selected");
+}
 
 
 function GameObject(name, img, health) {
@@ -188,6 +195,7 @@ function update() {
 
 
 function weaponSelection() {
+	console.log("weaponSelect");
   var selection = document.getElementById("equipment").value;
   console.log(selection);
   var active = document.getElementById("active");
