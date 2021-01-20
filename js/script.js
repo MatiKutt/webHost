@@ -5,10 +5,10 @@
 
 
  
-
-	var search = window.location.search;
-	console.log(search);
-	
+	var rawString = window.location.search;
+	var search = rawString.split("=");
+	console.log(search[0]);
+	console.log(search[1]);
     var frames = 6;
 
     // Current Frame
@@ -30,7 +30,7 @@ function enemySwitch(){
 
 function setName(){
 	console.log("setName");
-	document.getElementById("Name").innerHTML = search;
+	document.getElementById("Name").innerHTML = search[1];
     console.log("Weapon Selected");
 }
 
