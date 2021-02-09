@@ -3,19 +3,43 @@
 // In JavaScript you can consider everything an Object
 // including functions
 
+var gameScore;
+ 
+// Reading Level Information from a file
+  var readJSONFromURL = function (url, callback) {
+    var xhr = new XMLHttpRequest();
+    xhr.open('GET', url, true);
+    xhr.responseType = 'json';
 
-	var score = new XMLHttpRequest();
-	score.onreadystatechange = function() {
-	if (this.readyState == 4 && this.status == 200) {
-    var myObj = JSON.parse(this.responseText);
-    document.getElementById("demo").innerHTML = myObj.name;
-	}
-	};
-	score.open("GET", "./data/myPoints.json", true);
-	score.send();
+    xhr.onload = function () {
+      var status = xhr.status;
+      if (status == 200) {
+        callback(null, xhr.response);
+      } else {
+        callback(status);
+      }
+    };
 
+    xhr.send();
+  };
 
-	
+  readJSONFromURL('./data/myPoints.json', function (err, data) {
+    if (err != null) {
+      console.error(err);
+    } else {
+      var text = data["score"];
+      gameScore = text;
+	 console.log("score :", gameScore);
+    }
+  });
+  
+
+function updateScore() {
+	console.log(gameScore);
+    document.getElementById("Points").innerHTML = gameScore;
+
+}
+
 	
 	console.log (localStorage.getItem("health"));
 	
@@ -69,7 +93,7 @@ function GameObject(name, img, health) {
 function GamerInput(input) {
     this.action = input;
 }
-
+ 
   var initial = new Date().getTime();
   var currentFrame = 0;
   
@@ -147,6 +171,9 @@ function update() {
     // Iterate through all GameObjects
     // Updating position and gamestate
     // console.log("Update");
+	updateScore();
+	
+	
     for (i = 0; i < gameobjects.length; i++) {
 
         if (gamerInput.action === "Up") {
