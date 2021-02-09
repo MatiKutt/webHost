@@ -4,7 +4,22 @@
 // including functions
 
 
- 
+	var score = new XMLHttpRequest();
+	score.onreadystatechange = function() {
+	if (this.readyState == 4 && this.status == 200) {
+    var myObj = JSON.parse(this.responseText);
+    document.getElementById("demo").innerHTML = myObj.name;
+	}
+	};
+	score.open("GET", "./data/myPoints.json", true);
+	score.send();
+
+
+	
+	
+	console.log (localStorage.getItem("health"));
+	
+	
 	var rawString = window.location.search;
 	var search = rawString.split("=");
 	console.log(search[0]);
@@ -15,20 +30,25 @@
     var currentFrame = 0;
 
 	var enemyMoving = false;
-var sprite1 = new Image();
- var sprite = new Image();
+	var sprite1 = new Image();
+	var sprite = new Image();
     sprite.src = "./img/coolSprites.png"; // Frames 1 to 6
 	sprite1.src = "./img/1to6.png";
 
 
 
+
+
+
 function enemySwitch(){
 	enemyMoving = !enemyMoving;
+	gameobjects[0].health = 100;
 	console.log("switch");
 	
 }
 
 function setName(){
+	
 	console.log("setName");
 	document.getElementById("Name").innerHTML = search[1];
     console.log("Weapon Selected");
@@ -38,7 +58,8 @@ function setName(){
 function GameObject(name, img, health) {
     this.name = name;
     this.img = img;
-    this.health = health;
+    this.health = localStorage.getItem("health");
+	console.log(health);
     this.x = 0;
     this.y = 0;
 }
@@ -186,8 +207,10 @@ function update() {
 			gameobjects[0].y < gameobjects[1].y + 256 &&
 			gameobjects[0].y + 256 > gameobjects[1].y) {
 				gameobjects[0].health--;
-				gameobjects[1].x = 600;
-				gameobjects[1].y = 600;
+				localStorage.setItem("health", gameobjects[0].health);
+				console.log(localStorage.getItem("health"));
+				gameobjects[1].x = Math.floor(Math.random() * 1400);
+				gameobjects[1].y = Math.floor(Math.random() * 600);
 			}
 		}
     }
