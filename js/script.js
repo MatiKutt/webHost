@@ -368,6 +368,9 @@ function reportWindowSize() {
   window.innerHeight = window.outerHeight;
   the_canvas.width = window.innerWidth - 100;
   the_canvas.height = window.innerHeight - 500;
+  viewport.width = window.innerWidth;
+  viewport.height = window.innerHeight;
+  
   console.log("window resized");
 }
 
