@@ -365,6 +365,8 @@ function gameloop() {
 function reportWindowSize() {
   window.innerWidth = window.outerWidth;
   window.innerHeight = window.outerHeight;
+  the_canvas.width = window.innerWidth - 100;
+  the_canvas.height = window.innerHeight - 500;
   console.log("window resized");
 }
 
