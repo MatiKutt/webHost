@@ -5,6 +5,15 @@
 
 var gameScore;
  
+
+ 	var canvas = document.getElementById("the_canvas");
+ // get 2D context for this canvas
+var context = canvas.getContext("2d");
+	    // Total Frames
+ 
+ 
+ 
+ 
 // Reading Level Information from a file
   var readJSONFromURL = function (url, callback) {
     var xhr = new XMLHttpRequest();
@@ -38,6 +47,7 @@ function onPageLoad()
 {
 	console.log("should resize");
 	setName();
+	context.scale(.25,.25);
 	window.innerWidth = window.outerWidth;
 	window.innerHeight = window.outerHeight;
 	
@@ -275,11 +285,7 @@ function draw() {
     // console.log("Draw");
 	
 	
-	
-	var canvas = document.getElementById("the_canvas");
-    // get 2D context for this canvas
-    var context = canvas.getContext("2d");
-	    // Total Frames
+
 
 
     // Sprite
@@ -292,7 +298,7 @@ function draw() {
     }
 	
 	
-	context.clearRect(0, 0, canvas.width, canvas.height);
+	context.clearRect(0, 0, canvas.width * 4, canvas.height * 4);
 	context.drawImage(gameobjects[0].img, (sprite.width / 6) * currentFrame, 0, 100, 100, gameobjects[0].x, gameobjects[0].y, 256, 256);
     context.drawImage(gameobjects[1].img, (sprite.width / 6) * currentFrame, 0, 100, 100, gameobjects[1].x, gameobjects[1].y, 256, 256);	
 	animate();
@@ -366,9 +372,7 @@ function gameloop() {
 function reportWindowSize() {
   window.innerWidth = window.outerWidth;
   window.innerHeight = window.outerHeight;
-  the_canvas.width = window.innerWidth - 100;
-  the_canvas.height = window.innerHeight - 500;
-
+ 
   
   console.log("window resized");
 }
