@@ -37,8 +37,9 @@ var gameScore;
 function onPageLoad()
 {
 	setName();
-	the_canvas.width = innerWidth - 10;
-	the_canvas.height = innerHeight - 450;
+	window.innerWidth = window.outerWidth;
+	window.innerHeight = window.outerHeight;
+	
 }
 
 function updateScore() {
