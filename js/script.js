@@ -34,14 +34,17 @@ var gameScore;
   });
   
 
+function onPageLoad()
+{
+	setName();
+	the_canvas.width = innerWidth - 10;
+	the_canvas.height = innerHeight - 450;
+}
+
 function updateScore() {
     document.getElementById("Points").innerHTML = gameScore;
 
 }
-
-	
-	
-	
 	
 	var rawString = window.location.search;
 	var search = rawString.split("=");
@@ -85,8 +88,7 @@ function GameObject(name, img, health) {
 	console.log(health);
     this.x = 0;
     this.y = 0;
-	this.img.width = "10%";
-	this.img.width = "10%";
+	
 }
 
 // The GamerInput is an Object that holds the Current
