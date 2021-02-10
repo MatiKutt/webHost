@@ -86,6 +86,8 @@ function GameObject(name, img, health) {
 	console.log(health);
     this.x = 0;
     this.y = 0;
+	this.img.width = "10%";
+	this.img.width = "10%";
 }
 
 // The GamerInput is an Object that holds the Current
