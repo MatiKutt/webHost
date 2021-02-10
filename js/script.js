@@ -35,13 +35,12 @@ var gameScore;
   
 
 function updateScore() {
-	console.log(gameScore);
     document.getElementById("Points").innerHTML = gameScore;
 
 }
 
 	
-	console.log (localStorage.getItem("health"));
+	
 	
 	
 	var rawString = window.location.search;
