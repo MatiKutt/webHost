@@ -36,6 +36,7 @@ var gameScore;
 
 function onPageLoad()
 {
+	console.log("should resize");
 	setName();
 	window.innerWidth = window.outerWidth;
 	window.innerHeight = window.outerHeight;
