@@ -362,10 +362,17 @@ function gameloop() {
     window.requestAnimationFrame(gameloop);
 }
 
+function reportWindowSize() {
+  window.innerWidth = window.outerWidth;
+  window.innerHeight = window.outerHeight;
+  console.log("window resized");
+}
+
+
 // Handle Active Browser Tag Animation
 window.requestAnimationFrame(gameloop);
 
 // Handle Keypressed
 window.addEventListener('keyup', input);
 window.addEventListener('keydown', input);
-
+window.addEventListener('resize', reportWindowSize);
