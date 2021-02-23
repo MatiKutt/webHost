@@ -57,7 +57,7 @@ function onPageLoad()
                .register('./service_worker.js');
 			   console.log("register function");
     }
-	
+	console.log("try to fetch manifest");
 }
 
 function updateScore() {
