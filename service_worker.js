@@ -1,6 +1,6 @@
-var cacheName = 'muddygames-pwa';
+var cacheName = 'matiKutt-pwa';
 var filesToCache = [
-  '/',
+  './',
   './index.html',
   './gameLoop.html',
   './js/script.js'
