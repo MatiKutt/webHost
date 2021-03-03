@@ -60,6 +60,17 @@ function onPageLoad()
 	console.log("try to fetch manifest");
 }
 
+function onIndexLoad()
+{
+	
+	'use strict';
+	if ('serviceWorker' in navigator) {
+      navigator.serviceWorker
+               .register('./service_worker.js');
+			   console.log("register function");
+    }
+
+}
 function updateScore() {
     document.getElementById("Points").innerHTML = gameScore;
 
